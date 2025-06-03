@@ -1,0 +1,158 @@
+/* Reset y estilo básico */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e6f2e6;
+    display: flex;
+    height: 100vh;
+}
+/* Menú lateral fijo */
+#sidebar {
+    width: 280px;  /* Aumenté de 220px a 280px para más espacio */
+    background: #343a40;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+}
+/* Ajustar el contenido principal para que no se superponga */
+#content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 680px; /* aqui se ajusta */
+}
+#sidebar .logo-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+#sidebar .logo-container img {
+    height: 45px;
+}
+#sidebar a {
+    color: white;
+    padding: 15px 25px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+#sidebar a:hover,
+#sidebar a.active {
+    background-color: #495057;
+    color: #f8f9fa;
+}
+
+/* Contenido principal */
+#content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Top bar con usuario */
+#topbar {
+    width: 100%;
+    background: white;
+    border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px 25px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.05);
+    margin-bottom: 30px;
+    border-radius: 8px;
+}
+#topbar .dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold;
+    color: #343a40;
+    text-decoration: none;
+}
+
+/* Cards de cursos */
+.curso-card {
+    background: #fff; 
+    border-radius: 10px; 
+    padding: 15px 20px; 
+    margin-bottom: 15px; 
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: flex; 
+    align-items: center;
+    max-width: 600px;
+    width: 100%;
+}
+.curso-icon {
+    font-size: 3rem; 
+    color: #225f27; 
+    margin-right: 18px;
+}
+.curso-info h4 {
+    margin: 0 0 6px 0;
+    color: #225f27;
+}
+.curso-info p {
+    margin: 0;
+    color: #555;
+    white-space: pre-wrap;
+}
+.nivel-badge {
+    background-color: #b3ddb3;
+    color: black;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-left: auto;
+    user-select: none;
+}
+
+/* Botones */
+.botones {
+    margin-top: 35px;
+    display: flex;
+    gap: 20px;
+}
+.btn-accion {
+    background-color: #b3ddb3;
+    border: none;
+    color: black;
+    padding: 14px 36px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+    font-weight: 700;
+}
+.btn-accion:hover {
+    background-color: #9bd49b;
+    color: black;
+    text-decoration: none;
+}
+
+/* Mensaje motivacional */
+.mensaje-motivacional {
+    background: #225f27;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    font-size: 1.6rem;
+    font-style: italic;
+    text-align: center;
+    max-width: 650px;
+    margin-bottom: 40px;
+    box-shadow: 0 0 15px rgba(34, 95, 39, 0.6);
+}

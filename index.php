@@ -9,6 +9,23 @@
     <title>Aula Virtual - Inicio</title>
     <link rel="stylesheet" href="./BOOTSTRAP/css/bootstrap.min.css">
     <link rel="stylesheet" href="./css/estilos.css"> <!-- Opcional: tus estilos -->
+    <style>
+        body {
+            background-color: #e6f2e6;
+        }
+        .btn-iniciar {
+            background-color: #b3ddb3 !important;
+            color: #000 !important;
+            border: none !important;
+        }
+        .btn-iniciar:hover {
+            background-color: #9bd49b !important;
+            color: #000 !important;
+        }
+        .user-greeting {
+            margin-top: 1rem;
+        }
+    </style>
 </head>
 <body>
 
@@ -37,14 +54,13 @@
     include("frmCertificado.php");
 ?>
 
-<!-- Botón de Acceso/Login -->
-<div class="text-center mt-4">
+<!-- Botón Iniciar Sesión o Saludo con Cerrar Sesión -->
+<div class="text-center user-greeting">
     <?php if (!isset($_SESSION['usuario'])): ?>
-        <a href="login.php" class="btn btn-success">Acceder</a>
+        <a href="login.php" class="btn btn-iniciar">Iniciar Sesión</a>
     <?php else: ?>
-        <p>Hola, <?php echo $_SESSION['usuario']; ?>. 
-            <a href="panel.php" class="btn btn-primary">Ir al Panel</a> 
-            <a href="logout.php" class="btn btn-danger">Cerrar sesión</a>
+        <p>Hola, <?php echo htmlspecialchars($_SESSION['usuario']); ?> 
+            <a href="logout.php" class="btn btn-iniciar ms-2">Cerrar sesión</a>
         </p>
     <?php endif; ?>
 </div>

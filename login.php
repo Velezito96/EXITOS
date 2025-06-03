@@ -1,8 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['usuario'])) {
-    header("Location: index.php");
-    exit();
+    header("Location: dashboard.php");
 }
 ?>
 
@@ -71,6 +70,7 @@ if (isset($_SESSION['usuario'])) {
 
                     <div class="d-grid">
                         <button type="submit" class="btn btn-custom">Ingresar</button>
+                          <a href="dashboard.php"></a>
                     </div>
                 </form>
 

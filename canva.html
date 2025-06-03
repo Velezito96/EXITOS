@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tablero Kanban General</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .kanban-board {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .column {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 8px;
+            width: 250px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 10px;
+        }
+
+        .column h3 {
+            text-align: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .task {
+            background-color: #ffffff;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .task p {
+            margin: 0;
+        }
+
+        .completed {
+            background-color: #d4edda;
+        }
+
+        .in-progress {
+            background-color: #fff3cd;
+        }
+
+        .priority-low {
+            color: green;
+            font-weight: bold;
+        }
+
+        .priority-medium {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .priority-high {
+            color: red;
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            height: 10px;
+            margin-top: 5px;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #007bff;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .button:hover {
+            background-color: #218838;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="title">
+        <h1>Tablero Kanban General - Plan de Prácticas</h1>
+        <p><strong>Fecha:</strong> 20 de mayo, 2025</p>
+    </div>
+
+    <div class="kanban-board">
+        <!-- Columna "Por Hacer" -->
+        <div class="column">
+            <h3>Por Hacer</h3>
+            <div class="task">
+                <p><strong>Tarea:</strong> Entrevista con el representante de la empresa</p>
+                <p><strong>Fecha:</strong> 21/04 – 25/04</p>
+                <p class="priority-low">Prioridad: Baja</p>
+                <div class="progress-bar"><div class="progress" style="width: 0%;"></div></div>
+                <button class="button">Marcar como Hecho</button>
+            </div>
+            <div class="task">
+                <p><strong>Tarea:</strong> Levantamiento de información y análisis de requerimientos</p>
+                <p><strong>Fecha:</strong> 28/04 – 02/05</p>
+                <p class="priority-medium">Prioridad: Media</p>
+                <div class="progress-bar"><div class="progress" style="width: 10%;"></div></div>
+                <button class="button">Marcar como Hecho</button>
+            </div>
+            <div class="task">
+                <p><strong>Tarea:</strong> Diseño de la base de datos y de las ventanas del sistema</p>
+                <p><strong>Fecha:</strong> 05/05 – 10/05</p>
+                <p class="priority-high">Prioridad: Alta</p>
+                <div class="progress-bar"><div class="progress" style="width: 30%;"></div></div>
+                <button class="button">Marcar como Hecho</button>
+            </div>
+        </div>
+
+        <!-- Columna "Proceso" -->
+        <div class="column">
+            <h3>Proceso</h3>
+            <div class="task in-progress">
+                <p><strong>Tarea:</strong> Desarrollo del código fuente para la funcionalidad de las ventanas</p>
+                <p><strong>Fecha:</strong> 12/05 – 17/05</p>
+                <p class="priority-medium">Prioridad: Media</p>
+                <div class="progress-bar"><div class="progress" style="width: 50%;"></div></div>
+                <button class="button">Marcar como Hecho</button>
+            </div>
+            <div class="task in-progress">
+                <p><strong>Tarea:</strong> Diseño de las ventanas de Cursos, Certificados, Impresión, Anuncios y Foro</p>
+                <p><strong>Fecha:</strong> 19/05 – 24/05</p>
+                <p class="priority-high">Prioridad: Alta</p>
+                <div class="progress-bar"><div class="progress" style="width: 60%;"></div></div>
+                <button class="button">Marcar como Hecho</button>
+            </div>
+        </div>
+
+        <!-- Columna "Completo" -->
+        <div class="column">
+            <h3>Completo</h3>
+            <div class="task completed">
+                <p><strong>Tarea:</strong> Revisión de la documentación inicial</p>
+                <p><strong>Fecha:</strong> 10/04 – 15/04</p>
+                <p class="priority-low">Prioridad: Baja</p>
+                <div class="progress-bar"><div class="progress" style="width: 100%;"></div></div>
+            </div>
+            <div class="task completed">
+                <p><strong>Tarea:</strong> Instalación y configuración de programas</p>
+                <p><strong>Fecha:</strong> 16/04 – 20/04</p>
+                <p class="priority-medium">Prioridad: Media</p>
+                <div class="progress-bar"><div class="progress" style="width: 100%;"></div></div>
+            </div>
+            <div class="task completed">
+                <p><strong>Tarea:</strong> Levantamiento de información sobre requisitos de la plataforma</p>
+                <p><strong>Fecha:</strong> 23/04 – 27/04</p>
+                <p class="priority-high">Prioridad: Alta</p>
+                <div class="progress-bar"><div class="progress" style="width: 100%;"></div></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

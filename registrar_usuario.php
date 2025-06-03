@@ -2,7 +2,6 @@
 require 'connect.php';
 $pdo = conexionBD();
 
-// Mostrar errores si existen (útil en desarrollo)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -17,7 +16,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($usuario) || empty($clave) || empty($idCargo)) {
         $mensaje = "Todos los campos son obligatorios.";
     } else {
-        // Validar si ya existe
         $verificar = $pdo->prepare("SELECT * FROM cliente WHERE usuario = ?");
         $verificar->execute([$usuario]);
         if ($verificar->rowCount() > 0) {
@@ -43,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="BOOTSTRAP/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
-            background: linear-gradient(to bottom right, #e6f2e6, #b3ddb3); /* fondo amigable verde */
+            background: linear-gradient(to bottom right, #e6f2e6, #b3ddb3);
         }
 
         .card {
@@ -98,8 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <select name="idCargo" class="form-select" required>
                         <option value="">Seleccione un rol</option>
                         <option value="1">Administrador</option>
-                        <option value="2">Trabajador</option>
-                        <option value="3">Cliente</option>
+                        <option value="2">Profesor</option>
+                        <option value="3">Alumno</option>
                     </select>
                 </div>
 
