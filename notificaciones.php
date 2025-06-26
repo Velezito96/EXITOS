@@ -3,6 +3,7 @@ session_start();
 require 'connect.php';
 $pdo = conexionBD();
 
+// Verificar si el usuario ha iniciado sesión
 if (!isset($_SESSION['idCliente'])) {
     header("Location: login.php");
     exit();
@@ -10,6 +11,7 @@ if (!isset($_SESSION['idCliente'])) {
 
 $idCliente = $_SESSION['idCliente'];
 
+// Obtener las notificaciones del estudiante
 $sql = "SELECT mensaje, fecha FROM notificaciones WHERE idCliente = ? ORDER BY fecha DESC";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([$idCliente]);

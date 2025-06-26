@@ -8,51 +8,53 @@ if (!isset($_SESSION['usuario'])) {
 require 'connect.php';
 $pdo = conexionBD();
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $idCliente = $_POST['idCliente'] ?? null;
-    $idCurso = $_POST['idCurso'] ?? null;
-    $idNivel = $_POST['idNivel'] ?? null;
+$usuario = $_SESSION['usuario'];
 
-    if (!$idCliente || !$idCurso || !$idNivel) {
-        die("Datos incompletos para matricular.");
-    }
+// Obtener idCliente según usuario
+$sqlCliente = "SELECT idCliente FROM cliente WHERE usuario = :usuario LIMIT 1";
+$stmtCliente = $pdo->prepare($sqlCliente);
+$stmtCliente->execute(['usuario' => $usuario]);
+$cliente = $stmtCliente->fetch();
 
-    // Validar vacantes (max 30 por curso + nivel)
-    $sqlVacantes = "SELECT COUNT(*) as total FROM solicitud WHERE idCurso = :idCurso AND idNivel = :idNivel AND estado = 1";
-    $stmtVacantes = $pdo->prepare($sqlVacantes);
-    $stmtVacantes->execute(['idCurso' => $idCurso, 'idNivel' => $idNivel]);
-    $count = $stmtVacantes->fetch()['total'];
-
-    if ($count >= 30) {
-        header("Location: cursos_disponibles.php?mensaje=No hay vacantes disponibles para este curso y nivel");
-        exit();
-    }
-
-    // Verificar si ya est mmatriculado en ese curso y nivel
-    $sqlCheck = "SELECT * FROM solicitud WHERE idCliente = :idCliente AND idCurso = :idCurso AND idNivel = :idNivel LIMIT 1";
-    $stmtCheck = $pdo->prepare($sqlCheck);
-    $stmtCheck->execute(['idCliente' => $idCliente, 'idCurso' => $idCurso, 'idNivel' => $idNivel]);
-    $existe = $stmtCheck->fetch();
-
-    if ($existe) {
-        header("Location: cursos_disponibles.php?mensaje=Ya estás matriculado en este curso y nivel");
-        exit();
-    }
-
-    // Insertar matrícula  si el estado esta en 1 esta activo (no confundir xd)
-    $sqlInsert = "INSERT INTO solicitud (idCliente, idCurso, idNivel, fecha, estado) VALUES (:idCliente, :idCurso, :idNivel, :fecha, 1)";
-    $stmtInsert = $pdo->prepare($sqlInsert);
-    $fecha = date('Ymd');
-    $stmtInsert->execute([
-        'idCliente' => $idCliente,
-        'idCurso' => $idCurso,
-        'idNivel' => $idNivel,
-        'fecha' => $fecha
-    ]);
-
-    header("Location: mis_cursos.php?mensaje=Matriculación exitosa");
+if (!$cliente) {
+    echo "Error: Usuario no encontrado.";
     exit();
-} else {
+}
+$idCliente = $cliente['idCliente'];
+
+// Obtener datos del formulario
+$idCurso = $_POST['idCurso'];
+$idNivel = $_POST['idNivel'];
+
+// Iniciar una transacción
+$pdo->beginTransaction();
+
+try {
+    // Verificar si el cliente ya está matriculado en el curso
+    $sqlVerificar = "SELECT * FROM matricula WHERE idCliente = :idCliente AND idCurso = :idCurso";
+    $stmtVerificar = $pdo->prepare($sqlVerificar);
+    $stmtVerificar->execute(['idCliente' => $idCliente, 'idCurso' => $idCurso]);
+
+    if ($stmtVerificar->rowCount() > 0) {
+        throw new Exception("Ya estás matriculado en este curso.");
+    }
+
+    // Insertar la matrícula si no está matriculado
+    $sqlMatricular = "INSERT INTO matricula (idCliente, idCurso, idNivel, estado) VALUES (:idCliente, :idCurso, :idNivel, 'Activo')";
+    $stmtMatricular = $pdo->prepare($sqlMatricular);
+    $stmtMatricular->execute(['idCliente' => $idCliente, 'idCurso' => $idCurso, 'idNivel' => $idNivel]);
+
+    // Si todo fue exitoso, hacer commit de la transacción
+    $pdo->commit();
+
+    $_SESSION['matricula_exito'] = "Te has matriculado correctamente en el curso.";
+    header("Location: dashboard.php");
+    exit();
+} catch (Exception $e) {
+    // Si hay un error, hacer rollback de la transacción
+    $pdo->rollBack();
+    $_SESSION['error'] = $e->getMessage();
     header("Location: cursos_disponibles.php");
     exit();
 }
+?>
